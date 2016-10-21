@@ -1,0 +1,19 @@
+
+1.对象是一种自足的数据集合。于某个特定对象相关联的变量称为这个对象的属性，只能通过某个特定对象去调用的函数被称为这个对象的方法。
+2.JavaScript语言里对象分为三种类型。
+          ①用户定义对象(user-defined object):由程序员自行创建的对象。
+          ②内建对象(native object):内建在JavaScript语言里的对象如Array，Math和Date等。
+          ③宿主对象(host object):由浏览器提供的对象。
+3.document对象的主要功能是处理网页内容。
+4.DOM把一份文档表示为一棵树（数学上），更具体的说是一颗家谱树。家谱树本身又是一种模型。家谱树的典型用法是表示一个人类家族的谱系，并使用parent，child和sibling等记号来表示家族成员之间的关系。相比家谱树，把文档称为“节点树”更准确。
+5.文档是由节点构成的集合，只不过此时的节点是文档树上的树枝和树叶。
+DOM里有许多不同类型的节点：
+            ①元素节点
+            ②文本节点
+            ③属性节点
+6.为了把某一个或某几个元素与其它元素区别开来，需要使用class属性或者id属性。
+            ①class属性：你可以在所有的元素上任意应用class属性。在css里面可以用.class-name{}来为相同的所有元素定义同一种样式，也可以用tag-name.class-name{}为特定类型的元素定义特定的样式。
+            ②id属性的用途是给网页里的某个元素加上一个独一无二的标识符。在css里可以为特定id属性值的元素定义一种独享的样式，尽管id本身只能使用一次。id属性就像一个挂钩，一头连着文档里的某个元素，一头连着css样式表里的某个样式。DOM也可以使用这种挂钩。 
+7.有三种DOM方法可以获取元素节点，分别是通过元素ID，通过标签名字和通过类名字来获取。
+            ①getElementById:DOM提供了一个名为getElementById的方法，这个方法将返回一个与那个有着给定id属性值的元素节点对应的对象,它是document对象特有的函数。在脚本代码里函数名的后面必须跟有一对圆括号，这对圆括号包含着函数的参数，getElementById函数只有一个参数：你想获得的那个元素的id属性的值。这个id属性的值必须放在单引号或者双引号里。例如：document.getElementById("purchases")这个调用将返回一个对象，这个对象对应着document对象里的一个独一无二的元素，那个元素的HTML id属性值是purchase。typeof操作符可以告诉我们它的操作数是一个字符串，数值，函数，布尔值还是对象。比如：alert(typeof document.getElementById("purchases"));事实上 文档中的每一个元素都是一个对象。利用DOM可以得到任何一个对象。
+            ②DOM提供了另外一种方法来获取那些没有id属性的对象。getElementsByTagName方法返回一个对象数组，每个对象分别对应着文本里有着给定标签的一个元素。这个方法也只有一个参数，它的参数就是标签的名字。例如：document.getElementsByTagName("li")这个调用将返回一个对象数组，每个对象分别对应着document对象中的一个列表项元素。与其它任何数组一样，我们可以利用length属性查出这个数组里的元素个数如：alert(document.getElementsByTagName("li").length);如果你想知道某份文档里面共有多少个元素节点，像下面这样alert(document。getElementsByTagName("*").length);                                      ③getElementsByClassName：这个方法让我们能通过class属性中的类名来访问元素。也只接受一个参数就是类名。例如：document.getElementsByClassName("sale")还可以用来查找带有多个类名的元素比如：alert(document.getElemengsByClassName("important sale").length);类名循序不影响结果。

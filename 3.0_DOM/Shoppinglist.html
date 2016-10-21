@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<title>Shopping List</title>
+	<link rel="stylesheet" type="text/css" href="css.css">
+</head>
+<body>
+<h1>What to buy</h1>
+<p>Don't forget to buy this stuff.</p>
+<ul id="purchases">
+	<li>A tin of beans</li>
+	<li class="sale">Cheese</li>
+	<li class="sale important">Milk</li>
+</ul>
+</body>
+<script type="text/javascript">
+var Shopping = document.getElementById("purchases");
+var sales = Shopping.getElementsByClassName("sale");
+alert(sales.length);
+</script>
+</html>
