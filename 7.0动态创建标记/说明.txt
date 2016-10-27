@@ -1,0 +1,30 @@
+1.此前见过大多数DOM方法只能用来查找元素。之前的图片库案例出现的替换图片文字都是对已经存在的元素做出修改。这也是绝大多数JavaScript函数的工作原理。网页的结构由标记负责创建，JavaScript函数只用来改变某些细节而不改变其底层结构。
+2.JavaScript也可以用来改变网页的结构和内容，通过创建新的元素和修改现有元素来改变网页结构。
+          ①document对象的write()方法可以方便快捷地把字符串插入到文档里。但是最大的缺点是它违背了“行为应该与表现分离”的原则。即使把document.write语句挪到外部函数里，也还是要在标记的<body>部分使用<script>标签才能调用那个函数。把JavaScript和HTML代码混在一起是一种很不好的做法。这样既不容易阅读和编辑也无法享受把行为和结构分离的便利还容易导致错误。把结构，行为和样式分开永远都是一个好主意。各尽其责。
+		  ②innerHTML属性可以用来读写某给定元素里的HTML内容。在你需要把一大段HTML内容插入网页时，innerHTMl属性更合适。它既支持读取，又支持写入，你不仅可以用它来读出元素的HTML内容，还可以用它把HTML内容写入元素 利用这个技术无法区分“插入一段HTML内容”和“替换一段HTML内容”。一旦你使用了innerHTML属性，它的全部内容都将被替换。innerHTML属性比document.write()方法更值得推荐。类似于document.write方法，innerHTML属性也是HTML专有属性，不能用于任何其它的标记语言文档。
+3.在任何时候标准的DOM都可以用来代替innerHTML。虽说需要编写跟多的代码才能获得同样的效果，但DOM同时也提供了更高的精确性和更强大的功能。DOM是文档的表示。DOM不仅可以获取，还可以更新文档的内容。如果你改变了DOM节点树，文档在浏览器里的效果就会呈现变化。我们用文档编辑器打开文档不会发生任何变化，只有在浏览器打开文档时才能看到文档呈现效果的变化，因为浏览器实际显示的是那颗DOM节点树，在浏览器看来DOM节点树才是文档。在DOM看来，一个文档就是一颗节点树，如果你想在节点树上添加内容，就必须插入新的节点。如果你想添加一些标记到文档，就必须插入元素节点。
+          ①createElement方法创建一个新的元素。例如document.createElement("p");将创建一个p元素。这个方法本身并不能影响页面表现，还需要把这个新创建的元素插入到文档中去，为此你需要有个东西来引用这个新创建的节点。不论何时何地只要你使用了createElement方法就应该把新创建出来的元素赋给一个变量就总是一个好主意。
+		  var para = document.createElement("p");虽然这个新创建出来的p元素已经存在了，但他还不是任何一颗DOM节点树的组成部分，这种情况叫做“文档碎片”。
+		  ②appendChild方法可以让新创建的元素成为另一个元素的子节点。parent.appendChild(child)。和上面联系起来这个语法中的child就是刚刚用createElement方法创建出来的，praent就是id是testdiv的元素节点。
+		  var testdiv = document.getElementById("testdiv");
+	      var para = document.createElement("p");
+	      testdiv.appendChild(para);
+		  ③创建出一个元素节点并把它插入了文档的节点树，这个节点是一个空白的p元素，我们想把一些文本放在里面。你可以使用createTextNode方法来实现。与createElement的语法十分相似，document.createTextNode(text)。和刚才一样先赋予一个变量var txt = document.createTextNode("Hello World");添加同理:para.appendChild(txt);。
+          这个例子是按照一下顺序来创建和插入节点的:1.创建一个p元素节点。2.把这个p元素节点追加到test.html文档中的一个元素节点上。3.创建一个文本节点。4.把这个文本节点追加到刚才创建的那个p元素节点上。也可以先都创建再追加。在已有元素前插入一个新元素。DOM提供了一个名为insertBefore()方法，这个方法将把一个新元素插入到一个现有元素的前面。在调用此方法前你需要告诉它三件事:
+		  1.新元素:你想插入的元素(newElement)。
+		  2.目标元素:你想把这个新元素插入到哪个元素(targetElement)之前。
+		  3.父元素:目标元素的父元素(parentElement)。
+		  下面是这个方法的调用语法:parentElement.insertBefore(newElement，targetElement)。比如说:
+		  var gallery = document.getElementById("imagegallery");
+		  gallery.parentNode.insertBefore(placeholder,gallery);
+		  在现有元素后插入一个新元素:DOM本身没有提供这个方法，需要我们自己编写insertAfter函数。
+		  function insertAfter(newElement,targetElement){
+		  var parent = targetElement.parentNode;
+		  if(parent.lastChild == targetElement){
+		  parent.appendChild(newElement);
+		  }else{
+		  parent.insertBefore(newElement.targetElement.nextSibling);
+		  }
+		  }
+4.Ajax:用于概括异步加载页面内容的技术。使用Ajax就可以做到只更新页面中的一小部分，其它内容都不用加载。Ajax的主要优势是对页面的请求以异步方式发送到服务器。而服务器不会用整个页面来响应请求，它会在后台处理请求，与此同时用户还能继续浏览页面并于页面交互。你的脚本则可以按需加载和创建页面内容，而不会打断用户的浏览体验。
+          ①Ajax技术的核心是XMLHttpRequest对象。这个对象充当着浏览器中的脚本与服务器之间的中间人的角色。以往的请求都由浏览器发出，而JavaScript通过这个对象可以自己发送请求，同时也自己处理响应。不同浏览器实现XMLHttpRequest对象的方式不一样。为了保证跨浏览器得为同样的事情写不同的分支。
